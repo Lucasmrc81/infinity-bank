@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Empréstimos - Infinity Bank</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+  </head>
+  <body
+    class="bg-gray-900 text-white flex items-center justify-center min-h-screen"
+  >
+    <div
+      class="container bg-gray-800 p-6 rounded-lg shadow-lg mt-0 max-w-md mx-auto"
+    >
+      <div
+        class="header flex justify-center items-center"
+        aria-label="Informações da Conta"
+      >
+        <div class="account-info text-center">
+          <h1 class="text-3xl font-bold mb-2">
+            <a href="Dashboard.html" class="text-white">Infinity Bank</a>
+          </h1>
+        </div>
+      </div>
+      <h2 class="text-2xl font-bold mb-6 text-center">Empréstimos</h2>
+      <div class="mb-6 text-center">
+        <h3 class="text-xl font-bold mb-2">Empréstimo Pré-Aprovado</h3>
+        <p id="pre-aprovado" class="text-lg">R$ 20.000,00 - Pessoal</p>
+      </div>
+      <table class="w-full text-left">
+        <thead>
+          <tr>
+            <th class="px-4 py-2">Tipo</th>
+            <th class="px-4 py-2">Valor</th>
+            <th class="px-4 py-2">Ação</th>
+          </tr>
+        </thead>
+        <tbody id="emprestimos">
+          <tr>
+            <td class="border px-4 py-2">Pessoal</td>
+            <td class="border px-4 py-2">R$ 10.000,00</td>
+            <td class="border px-4 py-2">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onclick="solicitarEmprestimo('Pessoal', 10000)"
+              >
+                Solicitar
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">FGTS</td>
+            <td class="border px-4 py-2">R$ 5.000,00</td>
+            <td class="border px-4 py-2">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onclick="solicitarEmprestimo('FGTS', 5000)"
+              >
+                Solicitar
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">Consignado</td>
+            <td class="border px-4 py-2">R$ 15.000,00</td>
+            <td class="border px-4 py-2">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onclick="solicitarEmprestimo('Consignado', 15000)"
+              >
+                Solicitar
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">Imobiliário</td>
+            <td class="border px-4 py-2">R$ 100.000,00</td>
+            <td class="border px-4 py-2">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onclick="solicitarEmprestimo('Imobiliário', 100000)"
+              >
+                Solicitar
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">Veículo</td>
+            <td class="border px-4 py-2">R$ 30.000,00</td>
+            <td class="border px-4 py-2">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onclick="solicitarEmprestimo('Veículo', 30000)"
+              >
+                Solicitar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      function solicitarEmprestimo(tipo, valorSugerido) {
+        const valorSolicitado = prompt(
+          `Qual valor você deseja solicitar para o empréstimo ${tipo}? (Valor sugerido: R$ ${valorSugerido})`
+        );
+        if (valorSolicitado !== null) {
+          const valor = parseFloat(valorSolicitado.replace(",", "."));
+          if (isNaN(valor) || valor <= 0) {
+            alert("Por favor, insira um valor válido.");
+            return;
+          }
+
+          // Simulação de análise de crédito
+          const aprovado = Math.random() < 0.89; // 89% de chance de aprovação
+          if (aprovado) {
+            alert(
+              `Empréstimo do tipo ${tipo} no valor de R$ ${valor.toFixed(
+                2
+              )} aprovado com sucesso!`
+            );
+          } else {
+            alert(
+              `Empréstimo do tipo ${tipo} no valor de R$ ${valor.toFixed(
+                2
+              )} não aprovado. Por favor, tente um valor menor.`
+            );
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

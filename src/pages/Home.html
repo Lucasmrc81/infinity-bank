@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Infinity Bank - Login</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+  </head>
+  <main>
+    <div class="container bg-gray-800 p-6 rounded-lg shadow-lg mt-0">
+      <div
+        class="header flex justify-between items-center"
+        aria-label="Informações da Conta"
+      >
+        <div class="account-info text-right">
+          <h1 class="text-3xl font-bold mb-2">Infinity Bank</h1>
+        </div>
+      </div>
+      <form id="loginForm">
+        <label for="cpf" class="block text-gray-300 mb-2">CPF</label>
+        <input
+          type="text"
+          id="cpf"
+          name="cpf"
+          placeholder="Digite seu CPF"
+          class="input-field bg-gray-700 text-white"
+          required
+        />
+        <label for="senha" class="block text-gray-300 mb-2">Senha</label>
+        <input
+          type="password"
+          id="senha"
+          name="senha"
+          placeholder="Digite sua senha"
+          maxlength="6"
+          class="input-field bg-gray-700 text-white"
+          required
+          readonly
+        />
+        <div class="keyboard" id="keyboard"></div>
+        <button type="submit" class="btn mt-4">Entrar</button>
+      </form>
+      <p class="mt-4">
+        <a href="esqueci-senha.html" class="text-blue-500">Esqueci a senha</a>
+      </p>
+      <p class="mt-4">
+        Não tem uma conta?
+        <a href="cadastro.html" class="text-blue-500">Criar conta</a>
+      </p>
+    </div>
+    <script src="../js/login.js"></script>
+  </main>
+</html>

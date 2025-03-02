@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pix - Infinity Bank</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+  </head>
+  <body
+    class="bg-gray-900 text-white flex items-center justify-center h-screen"
+  >
+    <div
+      class="container bg-gray-800 p-6 rounded-lg shadow-lg mt-0 max-w-md mx-auto"
+    >
+      <div
+        class="header flex justify-center items-center"
+        aria-label="Informações da Conta"
+      >
+        <div class="account-info text-center">
+          <h1 class="text-3xl font-bold mb-2">
+            <a href="Dashboard.html" class="text-white">Infinity Bank</a>
+          </h1>
+        </div>
+      </div>
+      <h2 class="text-2xl font-bold mb-6 text-center">Pix</h2>
+      <form id="pixForm">
+        <label for="chavePix" class="block text-gray-300 mb-2">Chave Pix</label>
+        <input
+          type="text"
+          id="chavePix"
+          name="chavePix"
+          placeholder="Digite a chave Pix"
+          class="input-field bg-gray-700 text-white"
+          required
+          oninput="formatChavePix(this)"
+        />
+        <span id="chavePixErro" class="text-red-500 text-sm hidden"
+          >Chave Pix inválida!</span
+        >
+        <label for="valor" class="block text-gray-300 mb-2">Valor</label>
+        <input
+          type="number"
+          id="valor"
+          name="valor"
+          placeholder="Digite o valor"
+          class="input-field bg-gray-700 text-white"
+          required
+        />
+        <button type="submit" class="btn mt-4">Enviar Pix</button>
+      </form>
+    </div>
+    <script>
+      function formatChavePix(input) {
+        const value = input.value;
+        const chavePixErro = document.getElementById("chavePixErro");
+
+        if (/^\d{11}$/.test(value)) {
+          // CPF
+          input.value = value.replace(
+            /(\d{3})(\d{3})(\d{3})(\d{2})/,
+            "$1.$2.$3-$4"
+          );
+          chavePixErro.classList.add("hidden");
+        } else if (/^\d{10,11}$/.test(value)) {
+          // Celular
+          input.value = value.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+          chavePixErro.classList.add("hidden");
+        } else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          // E-mail
+          chavePixErro.classList.add("hidden");
+        } else if (value.length > 0) {
+          chavePixErro.classList.remove("hidden");
+        } else {
+          chavePixErro.classList.add("hidden");
+        }
+      }
+
+      document
+        .getElementById("pixForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const chavePix = document.getElementById("chavePix").value;
+          const valor = document.getElementById("valor").value;
+
+          if (
+            document.getElementById("chavePixErro").classList.contains("hidden")
+          ) {
+            try {
+              const response = await fetch("http://localhost:5000/api/pix", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chavePix, valor }),
+              });
+              const data = await response.json();
+              if (response.ok) {
+                alert("Pix enviado com sucesso!");
+                window.location.href = "dashboard.html";
+              } else {
+                alert(data.message);
+              }
+            } catch (error) {
+              console.error("Erro ao enviar Pix:", error);
+            }
+          } else {
+            alert("Chave Pix inválida!");
+          }
+        });
+    </script>
+  </body>
+</html>

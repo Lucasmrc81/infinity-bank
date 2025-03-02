@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Criação de Senha</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+    <script>
+      function handleRegister() {
+        const senhaLogin = document.getElementById("senhaLogin").value;
+        const confirmSenhaLogin =
+          document.getElementById("confirmSenhaLogin").value;
+
+        if (senhaLogin.length !== 6) {
+          alert("A senha de login deve ter exatamente 6 dígitos.");
+          return;
+        }
+        if (senhaLogin !== confirmSenhaLogin) {
+          alert("As senhas de login não coincidem.");
+          return;
+        }
+
+        const userData = {
+          nome: localStorage.getItem("nome"),
+          cpf: localStorage.getItem("cpf"),
+          email: localStorage.getItem("email"),
+          endereco: localStorage.getItem("endereco"),
+          senhaLogin: senhaLogin,
+        };
+
+        fetch("http://localhost:5000/api/cadastrar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert("Código de verificação enviado para seu e-mail.");
+              window.location.href = "codigo.html";
+            } else {
+              alert("Erro ao cadastrar: " + data.message);
+            }
+          })
+          .catch((error) => {
+            console.error("Erro no cadastro:", error);
+            alert("Ocorreu um erro no cadastro. Tente novamente.");
+          });
+      }
+    </script>
+  </head>
+  <body
+    class="bg-gray-900 text-white flex items-center justify-center min-h-screen"
+  >
+    <div
+      class="container bg-gray-800 p-6 rounded-lg shadow-lg mt-0 max-w-md mx-auto"
+    >
+      <div
+        class="header flex justify-center items-center"
+        aria-label="Informações da Conta"
+      >
+        <div class="account-info text-center">
+          <h1 class="text-3xl font-bold mb-2">Infinity Bank</h1>
+        </div>
+      </div>
+      <h2 class="text-3xl font-bold mb-6 text-center">Criação de Senha</h2>
+      <form
+        class="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md mx-auto"
+      >
+        <label class="block text-gray-300 mb-2">Senha (6 dígitos)</label>
+        <input
+          type="password"
+          id="senhaLogin"
+          oninput="this.value = this.value.replace(/\D/g, '');"
+          maxlength="6"
+          class="w-full p-2 rounded bg-gray-700 text-white"
+          required
+        />
+
+        <label class="block text-gray-300 mt-4 mb-2"
+          >Confirme a Senha (6 dígitos)</label
+        >
+        <input
+          type="password"
+          id="confirmSenhaLogin"
+          oninput="this.value = this.value.replace(/\D/g, '');"
+          maxlength="6"
+          class="w-full p-2 rounded bg-gray-700 text-white"
+          required
+        />
+
+        <button
+          type="button"
+          onclick="handleRegister()"
+          class="mt-6 w-full bg-blue-600 hover:bg-blue-700 p-2 rounded font-bold"
+        >
+          Criar Senha
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

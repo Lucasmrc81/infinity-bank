@@ -1,0 +1,9 @@
+# Logs (opcional, caso tenha logs no futuro)
+*.log
+
+# Arquivos do sistema operacional
+.DS_Store
+
+# Arquivos de configuração de editores (opcional)
+.vscode/
+.idea/

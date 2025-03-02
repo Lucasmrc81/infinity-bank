@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pagamentos - Infinity Bank</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+  </head>
+  <body
+    class="bg-gray-900 text-white flex items-center justify-center h-screen"
+  >
+    <div class="container bg-gray-800 p-6 rounded-lg shadow-lg mt-0">
+      <div
+        class="header flex justify-between items-center"
+        aria-label="Informações da Conta"
+      >
+        <div class="account-info text-right">
+          <h1 class="text-3xl font-bold mb-2">
+            <a href="Dashboard.html" class="text-white">Infinity Bank</a>
+          </h1>
+        </div>
+      </div>
+      <h2 class="text-2xl font-bold mb-6">Pagamentos</h2>
+      <form id="pagamentosForm">
+        <label for="codigoBarras" class="block text-gray-300 mb-2"
+          >Código de Barras</label
+        >
+        <input
+          type="text"
+          id="codigoBarras"
+          name="codigoBarras"
+          placeholder="Digite o código de barras"
+          class="input-field bg-gray-700 text-white"
+          required
+          oninput="formatCodigoBarras(this)"
+        />
+        <span id="codigoBarrasErro" class="text-red-500 text-sm hidden"
+          >Código de Barras inválido!</span
+        >
+        <label for="valor" class="block text-gray-300 mb-2">Valor</label>
+        <input
+          type="text"
+          id="valor"
+          name="valor"
+          class="input-field bg-gray-700 text-white"
+          readonly
+        />
+        <button type="submit" class="btn mt-4">Pagar</button>
+      </form>
+    </div>
+    <script>
+      function formatCodigoBarras(input) {
+        const value = input.value.replace(/\D/g, "");
+        const codigoBarrasErro = document.getElementById("codigoBarrasErro");
+        const valorInput = document.getElementById("valor");
+
+        if (value.length === 47 || value.length === 48) {
+          // Formatação do código de barras
+          input.value = value.replace(
+            /(\d{11})(\d{11})(\d{11})(\d{14})/,
+            "$1 $2 $3 $4"
+          );
+          codigoBarrasErro.classList.add("hidden");
+
+          // Extração do valor do código de barras
+          const valor = parseFloat(value.slice(-10)) / 100;
+          valorInput.value = `R$ ${valor.toFixed(2)}`;
+        } else if (value.length > 0) {
+          codigoBarrasErro.classList.remove("hidden");
+          valorInput.value = "";
+        } else {
+          codigoBarrasErro.classList.add("hidden");
+          valorInput.value = "";
+        }
+      }
+
+      document
+        .getElementById("pagamentosForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const codigoBarras = document
+            .getElementById("codigoBarras")
+            .value.replace(/\D/g, "");
+          const valor = document
+            .getElementById("valor")
+            .value.replace("R$ ", "");
+
+          if (
+            document
+              .getElementById("codigoBarrasErro")
+              .classList.contains("hidden")
+          ) {
+            try {
+              const response = await fetch(
+                "http://localhost:5000/api/pagamentos",
+                {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ codigoBarras, valor }),
+                }
+              );
+              const data = await response.json();
+              if (response.ok) {
+                alert("Pagamento realizado com sucesso!");
+                window.location.href = "dashboard.html";
+              } else {
+                alert(data.message);
+              }
+            } catch (error) {
+              console.error("Erro ao realizar pagamento:", error);
+            }
+          } else {
+            alert("Código de Barras inválido!");
+          }
+        });
+    </script>
+  </body>
+</html>

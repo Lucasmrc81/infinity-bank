@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartões - Infinity Bank</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+  </head>
+  <body
+    class="bg-gray-900 text-white flex items-center justify-center h-screen"
+  >
+    <div
+      class="container bg-gray-800 p-6 rounded-lg shadow-lg mt-0 max-w-md mx-auto"
+    >
+      <div
+        class="header flex justify-center items-center"
+        aria-label="Informações da Conta"
+      >
+        <div class="account-info text-center">
+          <h1 class="text-3xl font-bold mb-2">
+            <a href="Dashboard.html" class="text-white">Infinity Bank</a>
+          </h1>
+        </div>
+      </div>
+      <h2 class="text-2xl font-bold mb-6 text-center">Cartões</h2>
+      <table class="w-full text-left">
+        <thead>
+          <tr>
+            <th class="px-4 py-2">Número</th>
+            <th class="px-4 py-2">Vencimento</th>
+            <th class="px-4 py-2">Ação</th>
+          </tr>
+        </thead>
+        <tbody id="cartoes">
+          <tr>
+            <td class="border px-4 py-2">1234 5678 9012 3456</td>
+            <td class="border px-4 py-2">12/27</td>
+            <td class="border px-4 py-2">
+              <button
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                onclick="bloquearCartao('1234 5678 9012 3456')"
+              >
+                Bloquear
+              </button>
+              <button
+                class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-2"
+                onclick="solicitarSegundaVia('1234 5678 9012 3456')"
+              >
+                Solicitar 2ª Via
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">9876 5432 1098 7654</td>
+            <td class="border px-4 py-2">11/28</td>
+            <td class="border px-4 py-2">
+              <button
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                onclick="bloquearCartao('9876 5432 1098 7654')"
+              >
+                Bloquear
+              </button>
+              <button
+                class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-2"
+                onclick="solicitarSegundaVia('9876 5432 1098 7654')"
+              >
+                Solicitar 2ª Via
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      function bloquearCartao(numero) {
+        alert(`Cartão ${numero} bloqueado com sucesso!`);
+      }
+
+      function solicitarSegundaVia(numero) {
+        alert(
+          `Solicitação de 2ª via do cartão ${numero} realizada com sucesso!`
+        );
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Investimentos - Infinity Bank</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+  </head>
+  <body
+    class="bg-gray-900 text-white flex items-center justify-center h-screen"
+  >
+    <div
+      class="container bg-gray-800 p-6 rounded-lg shadow-lg mt-0 max-w-md mx-auto"
+    >
+      <div
+        class="header flex justify-center items-center"
+        aria-label="Informações da Conta"
+      >
+        <div class="account-info text-center">
+          <h1 class="text-3xl font-bold mb-2">
+            <a href="Dashboard.html" class="text-white">Infinity Bank</a>
+          </h1>
+        </div>
+      </div>
+      <h2 class="text-2xl font-bold mb-6 text-center">Investimentos</h2>
+      <table class="w-full text-left">
+        <thead>
+          <tr>
+            <th class="px-4 py-2">Investimento</th>
+            <th class="px-4 py-2">Tipo</th>
+            <th class="px-4 py-2">Valor</th>
+            <th class="px-4 py-2">Ação</th>
+          </tr>
+        </thead>
+        <tbody id="investimentos">
+          <tr>
+            <td class="border px-4 py-2">Tesouro Direto</td>
+            <td class="border px-4 py-2">Renda Fixa</td>
+            <td class="border px-4 py-2">R$ 1.000,00</td>
+            <td class="border px-4 py-2">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onclick="investir('Tesouro Direto')"
+              >
+                Investir
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">CDB</td>
+            <td class="border px-4 py-2">Renda Fixa</td>
+            <td class="border px-4 py-2">R$ 5.000,00</td>
+            <td class="border px-4 py-2">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onclick="investir('CDB')"
+              >
+                Investir
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">Ações</td>
+            <td class="border px-4 py-2">Renda Variável</td>
+            <td class="border px-4 py-2">R$ 10.000,00</td>
+            <td class="border px-4 py-2">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onclick="investir('Ações')"
+              >
+                Investir
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">Fundos Imobiliários</td>
+            <td class="border px-4 py-2">Renda Variável</td>
+            <td class="border px-4 py-2">R$ 20.000,00</td>
+            <td class="border px-4 py-2">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onclick="investir('Fundos Imobiliários')"
+              >
+                Investir
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">LCI</td>
+            <td class="border px-4 py-2">Renda Fixa</td>
+            <td class="border px-4 py-2">R$ 3.000,00</td>
+            <td class="border px-4 py-2">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onclick="investir('LCI')"
+              >
+                Investir
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      function investir(investimento) {
+        alert(`Investimento em ${investimento} realizado com sucesso!`);
+      }
+    </script>
+  </body>
+</html>

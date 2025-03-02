@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verificação de Código</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+    <script>
+      function verificarCodigo() {
+        const codigo = document.getElementById("codigo").value;
+
+        fetch("http://localhost:5000/api/verificar-codigo", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: localStorage.getItem("email"),
+            codigo,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert(
+                "Conta verificada com sucesso! Aguarde um e-mail de confirmação."
+              );
+              window.location.href = "home.html";
+            } else {
+              alert("Código inválido. Tente novamente.");
+            }
+          })
+          .catch((error) => {
+            console.error("Erro na verificação:", error);
+            alert("Ocorreu um erro. Tente novamente.");
+          });
+      }
+    </script>
+  </head>
+  <body
+    class="bg-gray-900 text-white flex items-center justify-center h-screen"
+  >
+    <div
+      class="container bg-gray-800 p-6 rounded-lg shadow-lg mt-0 max-w-md mx-auto"
+    >
+      <div
+        class="header flex justify-center items-center"
+        aria-label="Informações da Conta"
+      >
+        <div class="account-info text-center">
+          <h1 class="text-3xl font-bold mb-2">
+            <a href="Dashboard.html" class="text-white">Infinity Bank</a>
+          </h1>
+        </div>
+      </div>
+      <h1 class="text-3xl font-bold text-center">Verificação de Código</h1>
+
+      <form
+        class="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md mx-auto"
+      >
+        <label class="block text-gray-300 mb-2"
+          >Insira o código recebido por e-mail</label
+        >
+        <input
+          type="text"
+          id="codigo"
+          maxlength="6"
+          class="w-full p-2 rounded bg-gray-700 text-white text-center"
+          required
+        />
+
+        <button
+          type="button"
+          onclick="verificarCodigo()"
+          class="mt-6 w-full bg-green-600 hover:bg-green-700 p-2 rounded font-bold"
+        >
+          Confirmar
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

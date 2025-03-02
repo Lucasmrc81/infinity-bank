@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recuperação de Senha - Infinity Bank</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+    <style>
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+      }
+      .input-field {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-900 text-white flex items-center justify-center h-screen"
+  >
+    <div class="container bg-gray-800 p-6 rounded-lg shadow-lg">
+      <h1 class="text-3xl font-bold mb-6">Recuperação de Senha</h1>
+      <form id="recoveryForm">
+        <label for="identifier" class="block text-gray-300 mb-2"
+          >CPF ou E-mail</label
+        >
+        <input
+          type="text"
+          id="identifier"
+          name="identifier"
+          placeholder="Digite seu CPF ou E-mail"
+          class="input-field bg-gray-700 text-white"
+          required
+        />
+        <button type="submit" class="btn mt-4">Enviar</button>
+      </form>
+      <p class="mt-4">
+        <a href="home.html" class="text-blue-500">Voltar ao Login</a>
+      </p>
+    </div>
+
+    <script>
+      document
+        .getElementById("recoveryForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const identifier = document.getElementById("identifier").value;
+
+          try {
+            const response = await fetch(
+              "http://localhost:5000/api/recover-password",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ identifier }),
+              }
+            );
+            const data = await response.json();
+            if (response.ok) {
+              alert(
+                "Um token de recuperação foi enviado para seu e-mail ou SMS."
+              );
+              window.location.href = "reset-senha.html";
+            } else {
+              alert(data.message);
+            }
+          } catch (error) {
+            console.error("Erro ao enviar token de recuperação:", error);
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Criação de Senha de Segurança</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+    <script>
+      function handleSecurityPassword() {
+        const senhaSeguranca = document.getElementById("senhaSeguranca").value;
+        const confirmSenhaSeguranca = document.getElementById(
+          "confirmSenhaSeguranca"
+        ).value;
+
+        if (senhaSeguranca.length !== 4) {
+          alert("A senha de segurança deve ter exatamente 4 dígitos.");
+          return;
+        }
+        if (senhaSeguranca !== confirmSenhaSeguranca) {
+          alert("As senhas de segurança não coincidem.");
+          return;
+        }
+
+        const userData = {
+          senhaSeguranca: senhaSeguranca,
+        };
+
+        fetch("http://localhost:5000/api/cadastrarSenhaSeguranca", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert("Senha de segurança cadastrada com sucesso.");
+              window.location.href = "Dashboard.html";
+            } else {
+              alert("Erro ao cadastrar senha de segurança: " + data.message);
+            }
+          })
+          .catch((error) => {
+            console.error("Erro no cadastro:", error);
+            alert("Ocorreu um erro no cadastro. Tente novamente.");
+          });
+      }
+    </script>
+  </head>
+  <body
+    class="bg-gray-900 text-white flex items-center justify-center h-screen"
+  >
+    <div
+      class="container bg-gray-800 p-6 rounded-lg shadow-lg mt-0 max-w-md mx-auto"
+    >
+      <div
+        class="header flex justify-center items-center"
+        aria-label="Informações da Conta"
+      >
+        <div class="account-info text-center">
+          <h1 class="text-3xl font-bold mb-2">Infinity Bank</h1>
+        </div>
+      </div>
+      <h1 class="text-3xl font-bold text-center">
+        Criação de Senha de Segurança
+      </h1>
+
+      <form
+        class="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md mx-auto"
+      >
+        <label class="block text-gray-300 mb-2"
+          >Senha de Segurança (4 dígitos)</label
+        >
+        <input
+          type="password"
+          id="senhaSeguranca"
+          oninput="this.value = this.value.replace(/\D/g, '');"
+          maxlength="4"
+          class="w-full p-2 rounded bg-gray-700 text-white"
+          required
+        />
+
+        <label class="block text-gray-300 mt-4 mb-2"
+          >Confirme a Senha de Segurança (4 dígitos)</label
+        >
+        <input
+          type="password"
+          id="confirmSenhaSeguranca"
+          oninput="this.value = this.value.replace(/\D/g, '');"
+          maxlength="4"
+          class="w-full p-2 rounded bg-gray-700 text-white"
+          required
+        />
+
+        <button
+          type="button"
+          onclick="handleSecurityPassword()"
+          class="mt-6 w-full bg-blue-600 hover:bg-blue-700 p-2 rounded font-bold"
+        >
+          Finalizar Cadastro
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

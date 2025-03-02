@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Infinity Bank</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+  </head>
+  <body>
+    <main>
+      <div class="container bg-gray-800 p-6 rounded-lg shadow-lg mt-0">
+        <div
+          class="header flex justify-between items-center"
+          aria-label="Informações da Conta"
+        >
+          <div class="account-info text-right">
+            <h1 class="text-3xl font-bold mb-2">Infinity Bank</h1>
+          </div>
+          <div class="account-info text-right">
+            <p>Agência: <span id="agencia"></span></p>
+            <p>Conta: <span id="conta"></span></p>
+            <button
+              onclick="window.location.href='home.html'"
+              class="text-white font-bold py-1 px-2 rounded mt-2 border border-white"
+            >
+              Sair
+            </button>
+          </div>
+        </div>
+        <div class="text-2xl font-bold text-left">
+          Bem-vindo, <span id="nomeCliente" class="inline-block"></span>!
+          <p class="balance text-lg">Saldo: R$ <span id="saldo"></span></p>
+        </div>
+        <div class="content">
+          <nav class="menu bg-blue-500 text-white p-4 rounded-lg">
+            <ul class="flex flex-wrap justify-between">
+              <li><a href="pix.html">Pix</a></li>
+              <li>|</li>
+              <li><a href="pagamentos.html">Pagamentos</a></li>
+              <li>|</li>
+              <li><a href="seguro.html">Seguro</a></li>
+              <li>|</li>
+              <li><a href="extrato.html">Extrato</a></li>
+              <li>|</li>
+              <li><a href="cartoes.html">Cartões</a></li>
+              <li>|</li>
+              <li><a href="investimentos.html">Investimentos</a></li>
+              <li>|</li>
+              <li><a href="emprestimos.html">Empréstimos</a></li>
+              <li>|</li>
+              <li><a href="outros-servicos.html">Outros Serviços</a></li>
+            </ul>
+          </nav>
+          <div class="mt-4 flex justify-end">
+            
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Contêineres de propaganda -->
+      <div class="container bg-gray-800 p-6 rounded-lg shadow-lg mt-6 max-w-4xl mx-auto">
+        <h2 class="text-2xl font-bold mb-4 text-center">Nossos Serviços</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-gray-700 p-4 rounded-lg text-center">
+            <h3 class="text-xl font-bold mb-2">Investimento</h3>
+            <p>Invista com a gente e veja seu dinheiro crescer.</p>
+          </div>
+          <div class="bg-gray-700 p-4 rounded-lg text-center">
+            <h3 class="text-xl font-bold mb-2">Cartão de Crédito</h3>
+            <p>Solicite seu cartão de crédito com limite especial.</p>
+          </div>
+          <div class="bg-gray-700 p-4 rounded-lg text-center">
+            <h3 class="text-xl font-bold mb-2">Empréstimos</h3>
+            <p>Consiga empréstimos com taxas especiais para clientes.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="../js/dashboard.js"></script>
+  </body>
+</html>
